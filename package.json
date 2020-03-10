@@ -1,0 +1,23 @@
+{
+  "name": "yelpcamp",
+  "version": "1.0.0",
+  "description": "Yelpcamp web page",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sky3691841/Yelpcamp.git"
+  },
+  "author": "TY Huang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sky3691841/Yelpcamp/issues"
+  },
+  "homepage": "https://github.com/sky3691841/Yelpcamp#readme",
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "express": "^4.17.1"
+  }
+}
