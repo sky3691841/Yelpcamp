@@ -3,32 +3,19 @@ var express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
-    Campground = require("./models/campground")
+    Campground = require("./models/campground"),
+    seedDB = require("./seeds")
 
+seedDB();
 mongoose.connect("mongodb://localhost/yelp_camp", {
     useNewUrlParser:true, useUnifiedTopology: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
 
-// Campground.create(
-//     {
-//         name: "Yangming Mountain",
-//         image: "https://pgw.udn.com.tw/gw/photo.php?u=https://uc.udn.com.tw/photo/2019/10/04/draft/6899908.jpg&x=0&y=0&sw=0&sh=0&sl=W&fw=800&exp=3600&w=930",
-//         description: "Biggest mountain in Taipei City."
-//     }, 
-//     function(err, campground) {
-//         if(err) {
-//             console.log(err);
-//         } else {
-//             console.log("Newly Created Campground");
-//             console.log(campground);
-//         }
-//     })
-
-// app.get("/", function(req, res) {
-//     res.render("landing");
-// })
+app.get("/", function(req, res) {
+    res.render("landing");
+})
 
 /** INDEX - Show all the campgrounds */
 app.get("/campgrounds", function(req, res) {
@@ -66,7 +53,7 @@ app.get("/campgrounds/new", function(req, res) {
 
 /** SHOW - shows more info about one campground */
 app.get("/campgrounds/:id", function(req, res) {
-    Campground.findById(req.params.id, function(err, foundCampground) {
+    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground) {
         if (err) {
             console.log(err);
         } else {
