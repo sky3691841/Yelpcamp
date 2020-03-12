@@ -77,6 +77,7 @@ router.delete("/:id", middleware.checkCampgroundOwnership,function(req, res) {
         if (err) {
             res.redirect("/campgrounds");
         } else {
+            req.flash("success", "Campground Deleted");
             res.redirect("/campgrounds");
         }
     });
