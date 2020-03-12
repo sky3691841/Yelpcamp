@@ -9,6 +9,8 @@
                 <li class="list-group-item">Info</li>
                 <li class="list-group-item">Info</li>
             </div>
+            <br>
+            <div id='map'></div>
         </div>
         <div class="col-md-9">
             <div class="card">
@@ -61,5 +63,14 @@
         </div>
     </div>
 </div>
+
+<!-- Mapbox Script -->
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoidHlodWFuZyIsImEiOiJjazdvb3lrdmIwYnBqM2RtZmJnM3UxcTNyIn0.W3gIbCTTwXPoblD6hrY3_A';
+    var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11'
+    });
+</script>
 
 <%- include("../partials/footer") %>
