@@ -1,17 +1,12 @@
 var express = require("express");
-var NodeGeocoder = require("node-geocoder");
 var router = express.Router();
 var Campground = require("../models/campground");
 var middleware = require("../middleware");
+var mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 
-var options = {
-    provider: 'google',
-    httpAdapter: 'https',
-    apiKey: process.env.GEOCODER_API_KEY,
-    formatter: null
-  };
-   
-var geocoder = NodeGeocoder(options);
+var geocodingClient = mbxGeocoding({
+    accessToken: "pk.eyJ1IjoidHlodWFuZyIsImEiOiJjazdvcWIxcWUwMXVrM2VycnB6Z3MyeDA1In0.WxrdDbg-SYMAoMD7E7o2Ig"
+});
 
 /** INDEX - Show all the campgrounds */
 router.get("/", function(req, res) {
@@ -26,16 +21,29 @@ router.get("/", function(req, res) {
 });
 
 /** CREATE - add new campground to DB */
-router.post("/", middleware.isLoggedIn, function(req, res) {
+router.post("/", middleware.isLoggedIn, async function(req, res) {
     var name = req.body.name;
     var price = req.body.price;
     var image = req.body.image;
     var dsc = req.body.description;
+    var location = req.body.location;
+    var coordinates = req.body.coordinates;
     var author = {
         id: req.user._id,
         username: req.user.username
     }
-    var newCampground = {name:name, price: price, image:image, description: dsc, author: author}
+
+    let response = await geocodingClient.forwardGeocode({
+        query: req.body.location,
+        limit: 1
+    })
+    .send()
+
+    coordinates = response.body.features[0].geometry.coordinates;
+    console.log(coordinates);
+
+    var newCampground = {name:name, price: price, image:image, description: dsc, author: author
+        , location: location, coordinates: coordinates}
     
     // Create a new campground and save to DB
     Campground.create(newCampground, function(err, newlyCreated) {

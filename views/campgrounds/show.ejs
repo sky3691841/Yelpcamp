@@ -66,11 +66,20 @@
 
 <!-- Mapbox Script -->
 <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoidHlodWFuZyIsImEiOiJjazdvb3lrdmIwYnBqM2RtZmJnM3UxcTNyIn0.W3gIbCTTwXPoblD6hrY3_A';
+    var campground = <%- JSON.stringify(campground) %>;
+    mapboxgl.accessToken = 'pk.eyJ1IjoidHlodWFuZyIsImEiOiJjazdvcWIxcWUwMXVrM2VycnB6Z3MyeDA1In0.WxrdDbg-SYMAoMD7E7o2Ig';
     var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11'
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: campground.coordinates, // Starting position [lng, lat]
+        zoom: 10, // Starting zoom level
     });
+
+    var marker = new mapboxgl.Marker({'color': 'blue'}) // initialize a new marker
+    .setLngLat(campground.coordinates) // Marker [lng, lat] coordinates
+    // .setPopup(new mapboxgl.Popup({ offset: 25}))
+    // .setHTML('<h3>' + campground.name + '</h3><p>' + campground.location + '</p>')
+    .addTo(map); // Add the marker to the map
 </script>
 
 <%- include("../partials/footer") %>
