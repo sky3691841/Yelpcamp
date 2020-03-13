@@ -40,7 +40,6 @@ router.post("/", middleware.isLoggedIn, async function(req, res) {
     .send()
 
     coordinates = response.body.features[0].geometry.coordinates;
-    console.log(coordinates);
 
     var newCampground = {name:name, price: price, image:image, description: dsc, author: author
         , location: location, coordinates: coordinates}
@@ -79,7 +78,15 @@ router.get("/:id/edit", middleware.checkCampgroundOwnership, function(req, res) 
 });
 
 /** Update Campground Route */
-router.put("/:id", middleware.checkCampgroundOwnership, function(req, res) {
+router.put("/:id", middleware.checkCampgroundOwnership, async function(req, res) {
+    let response = await geocodingClient.forwardGeocode({
+        query: req.body.campground.location,
+        limit: 1
+    })
+    .send()
+
+    req.body.campground.coordinates = response.body.features[0].geometry.coordinates;
+    
     // find and update the correct campground
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground) {
         if (err) {
