@@ -8,10 +8,10 @@ Backend: Node.js / Express + MongoDB
 
 ### Frameworks & Middlewares
 
-* **[ExpressJS](https://expressjs.com/)** is used for managing routes, handling requests and views.
-* **[MongooseJS](http://mongoosejs.com/)** is used for managing relationships between data, providing schema validation.
+* **[Express](https://expressjs.com/)** is used for managing routes, handling requests and views.
+* **[Mongoose](http://mongoosejs.com/)** is used for managing relationships between data, providing schema validation.
 * **[Body-Parser](https://github.com/expressjs/body-parser/)** is used to parse the data that was received as a result of HTTP POST request.
-* **[PassportJS](www.passportjs.org/)** is used to provide user authentication.
+* **[Passport.js](www.passportjs.org/)** is used to provide user authentication.
 * **Embedded JavaScript** is used to embed the JavaScript within the HTML tags to implement the logic.
 
 * Some other self-defined middlewares to improve the application such as:
