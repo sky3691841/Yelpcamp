@@ -2,6 +2,8 @@
 
 A camping website with CRUD functionality , allowing users to share their camping experience.
 
+Final Project of online course [The Web Developer Bootcamp](https://www.udemy.com/course/the-web-developer-bootcamp/learn/lecture/4474078#questions)
+
 ### Techniques Used
 Frontend: HTML / CSS / JavaScript + Bootstrap 4
 Backend: Node.js / Express + MongoDB
